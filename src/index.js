@@ -5,8 +5,6 @@ import Header from './Header.jsx'
 import Footer from './Footer.jsx'
 import Launches from './Launches.jsx'
 
-var ayush = "codingzen"
-
 fetch("https://api.spacexdata.com/v4/launches/upcoming").then(function (res) {
     return (res.json())
 }).then(function (res2) {

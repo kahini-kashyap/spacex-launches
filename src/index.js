@@ -1,17 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+import Header from './Header.jsx'
+import Footer from './Footer.jsx'
+import Launches from './Launches.jsx'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+var ayush = "codingzen"
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+fetch("https://api.spacexdata.com/v4/launches/upcoming").then(function (res) {
+    return (res.json())
+}).then(function (res2) {
+    ReactDOM.render(<><Header />
+        {
+            res2.map(function (val) {
+                if (val.details == null) {
+                    val.details = "No details available about this mission"
+                }
+                return (
+                    <Launches name={val.name} details={val.details} date={val.date_local} />
+                )
+            })
+
+        }
+        <Footer /></>, document.getElementById("root"))
+})
